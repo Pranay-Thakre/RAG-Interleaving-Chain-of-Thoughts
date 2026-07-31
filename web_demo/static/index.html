@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRCoT: Interleaved Retrieval with Chain-of-Thought Reasoning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-badge">ACL</div>
+        <h1>IRCoT Framework</h1>
+        <span class="subtitle">Interleaved Retrieval-Guided Chain-of-Thought System</span>
+      </div>
+      <div class="header-status">
+        <span class="status-indicator active"></span>
+        <span class="status-text">Server Active (Vector & BM25 Ready)</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="control-panel glass-card">
+        <div class="panel-header">
+          <h2>Query Configuration</h2>
+          <span class="badge">Multi-Step Reasoning</span>
+        </div>
+
+        <form id="queryForm" class="query-form">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="datasetSelect">Target Dataset / Corpus</label>
+              <select id="datasetSelect" class="form-control">
+                <option value="hotpotqa" selected>HotpotQA (Multi-hop Wikipedia)</option>
+                <option value="2wikimultihopqa">2WikiMultihopQA (Annotated Multi-hop)</option>
+                <option value="musique">MuSiQue (Hard 2-4 Hop QA)</option>
+                <option value="iirc">IIRC (Incomplete Reading Comprehension)</option>
+              </select>
+            </div>
+
+            <div class="form-group flex-1">
+              <label for="systemSelect">Reasoning Framework</label>
+              <select id="systemSelect" class="form-control">
+                <option value="ircot_qa" selected>IRCoT (Proposed Interleaved System)</option>
+                <option value="oner_qa">OneR (One-Step Retrieval Baseline)</option>
+                <option value="nor_qa">NoR (No Retrieval Baseline)</option>
+              </select>
+            </div>
+
+            <div class="form-group flex-1">
+              <label for="retrievalSelect">Retrieval Engine</label>
+              <select id="retrievalSelect" class="form-control">
+                <option value="bm25" selected>BM25 / In-Memory Indexer</option>
+                <option value="vector">Dense Vector Embeddings</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="questionInput">Multi-Step Complex Question</label>
+              <span class="sample-picker" id="samplePicker">Try Sample Question</span>
+            </div>
+            <div class="input-wrapper">
+              <textarea id="questionInput" class="form-control textarea" rows="2" placeholder="e.g., Were Scott Derrickson and Ed Wood of the same nationality?"></textarea>
+              <button type="submit" id="submitBtn" class="btn btn-primary">
+                <span class="btn-icon">⚡</span>
+                <span class="btn-text">Execute Reasoning</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <div class="results-grid">
+        <section class="trace-section glass-card">
+          <div class="panel-header">
+            <h3>Iterative Reasoning & Retrieval Steps</h3>
+            <span id="executionBadge" class="badge badge-outline">Ready</span>
+          </div>
+          <div id="stepTraceContainer" class="step-trace-container">
+            <div class="placeholder-msg">
+              <div class="placeholder-icon">🧠</div>
+              <p>Enter a complex multi-step question above and click <strong>Execute Reasoning</strong> to watch the IRCoT step-by-step reasoning loop in real-time.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="context-section glass-card">
+          <div class="panel-header">
+            <h3>Retrieved Evidence Paragraphs</h3>
+            <span id="paraCountBadge" class="badge badge-secondary">0 Documents</span>
+          </div>
+          <div id="paragraphContainer" class="paragraph-container">
+            <div class="placeholder-msg">
+              <div class="placeholder-icon">📚</div>
+              <p>Retrieved Wikipedia document paragraphs supporting the chain of thought will be displayed here.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>StonyBrookNLP IRCoT Framework • Multi-Step Reasoning System</p>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

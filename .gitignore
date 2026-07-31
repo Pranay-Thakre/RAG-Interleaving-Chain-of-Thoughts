@@ -1,0 +1,16 @@
+*.pyc
+__pycache__/
+.DS_Store
+raw_data/
+processed_data/
+predictions/
+instantiated_configs/
+official_evaluation/
+.retriever_address.json
+.llm_server_address.json
+.retriever_address.jsonnet
+.llm_server_address.jsonnet
+.history
+.temp
+.cache/
+*.log
